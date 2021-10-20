@@ -96,12 +96,9 @@ class ExceptionMiddleware extends Middleware {
 		if (strpos(get_class($controller), 'OCA\\Deck\\Controller\\') === 0) {
 			$response = [
 				'status' => 500,
-				'message' => $exception->getMessage()
+				'message' => 'Internal Server Error',
 			];
 			$this->logger->logException($exception);
-			if ($this->config->getSystemValue('debug', true) === true) {
-				$response['exception'] = (array) $exception;
-			}
 			return new JSONResponse($response, 500);
 		}
 
